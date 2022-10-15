@@ -21,9 +21,15 @@ import java.util.concurrent.Callable;
 public class Launcher implements Callable<Integer>{
 
     @Option(names={"-c","--classes"},required = true,description = "Permettre de renseigner les classes d'où faire partir l'analyse ", paramLabel = "test")
-    boolean ct;
+   private final boolean  ct;
     @Option( names = {"-g","--graph-type"},required = false,description = "Permettre de sélectionner le type de graph que l'on souhaite en sortie (default: ${DEFAULT-VALUE})",defaultValue = "Mermaid")
-      GraphType gt;
+    private final   GraphType gt;
+
+    public Launcher() {
+        ct = false;
+        gt = null;
+    }
+
     @Override
     public Integer call() throws Exception {
         try{
