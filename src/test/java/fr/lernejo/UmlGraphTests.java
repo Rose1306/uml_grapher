@@ -1,10 +1,11 @@
 package fr.lernejo;
 
+import fr.lernejo.umlgrapher.GraphType;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.lernejo.umlgrapher.UmlGraph;
-import fr.lernejo.umlgrapher.UmlGraph.GraphType;
+import fr.lernejo.umlgrapher.GraphType;
 
 class UmlGraphTests {
     @Test
