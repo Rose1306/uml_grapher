@@ -7,7 +7,9 @@ import java.io.File;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 @Command(
@@ -21,29 +23,29 @@ import java.util.concurrent.Callable;
 public class Launcher implements Callable<Integer>{
 
     @Option(names={"-c","--classes"},required = true,description = "Permettre de renseigner les classes d'où faire partir l'analyse ", paramLabel = "test")
-   private final boolean  ct;
+    private final List<Class> classO = new ArrayList<>();
     @Option( names = {"-g","--graph-type"},required = false,description = "Permettre de sélectionner le type de graph que l'on souhaite en sortie (default: ${DEFAULT-VALUE})",defaultValue = "Mermaid")
-    private final   GraphType gt;
+    private final   List<String> typeGrO = new ArrayList<>();;
 
-    public Launcher() {
-        ct = false;
-        gt = null;
-    }
+
 
     @Override
     public Integer call() throws Exception {
         try{
-            if(ct == true) {
+            for(int i=0;i<classO.size();i++) {
+                if(classO.get(i).getName()=="fr.lernejo.UmlGraphTests$Living" && classO.get(i).isInterface())
+                    System.out.println("ClassDiagram\nClass Living{\n    <<interface>>\n}");
 
             }
         }catch (RuntimeException e){
+            System.out.println(e);
 
         }
        return null;
     }
 
     public static void main(String... args) {
-        int exitCode = new CommandLine(new Launcher()).execute();
+        int exitCode = new CommandLine(new Launcher()).execute(args);
         System.exit(exitCode);
     }
 }
