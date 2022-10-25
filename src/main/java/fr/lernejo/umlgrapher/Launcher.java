@@ -23,26 +23,28 @@ import java.util.concurrent.Callable;
 public class Launcher implements Callable<Integer>{
 
     @Option(names={"-c","--classes"},required = true,description = "Permettre de renseigner les classes d'où faire partir l'analyse ", paramLabel = "test")
-    private final List<Class> classO = new ArrayList<>();
+    private final Class<?>classO = null;
     @Option( names = {"-g","--graph-type"},required = false,description = "Permettre de sélectionner le type de graph que l'on souhaite en sortie (default: ${DEFAULT-VALUE})",defaultValue = "Mermaid")
-    private final   List<String> typeGrO = new ArrayList<>();;
+    private final   GraphType typeGrO=GraphType.Mermaid ;
 
 
 
     @Override
     public Integer call() throws Exception {
-        try{
-            for(int i=0;i<classO.size();i++) {
-                if(classO.get(i).getName()=="fr.lernejo.UmlGraphTests$Living" && classO.get(i).isInterface())
-                    System.out.println("ClassDiagram\nClass Living{\n    <<interface>>\n}");
+        try {
 
-            }
-        }catch (RuntimeException e){
+                UmlGraph um = new UmlGraph(classO);
+                String outPut = um.as(typeGrO);
+                System.out.println(outPut);
+
+
+        } catch (RuntimeException e) {
             System.out.println(e);
 
         }
-       return null;
+        return null;
     }
+
 
     public static void main(String... args) {
         int exitCode = new CommandLine(new Launcher()).execute(args);
