@@ -5,6 +5,5 @@ public enum GraphType {
      *
      */
     Mermaid,
-    Rose
     ;
 }
